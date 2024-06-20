@@ -38,7 +38,7 @@ public class MenuService {
         // 세션 닫아주기
         sqlSession.close();
 
-        return null;
+        return menuList;
     }
 
     public MenuDTO selectMenuByCode(int code) {
@@ -51,5 +51,58 @@ public class MenuService {
         sqlSession.close();
 
         return menu;
+    }
+
+    public boolean registMenu(MenuDTO menu) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.insertMenu(sqlSession, menu);
+
+        // result 결과값에 따라서 insert, update, delete 는 트랜잭션 처리를 해줘야함
+
+        if(result > 0){
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return  result > 0 ? true : false;
+    }
+
+    public boolean modifyMenu(MenuDTO menu) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.updateMenu(sqlSession, menu);
+
+        if(result > 0){
+            sqlSession.commit();
+        }else{
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return result > 0 ? true : false;
+    }
+
+    public boolean deleteMenu(int code) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.deleteMenu(sqlSession, code);
+
+        if(result > 0) {
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return result > 0 ? true : false;
     }
 }
