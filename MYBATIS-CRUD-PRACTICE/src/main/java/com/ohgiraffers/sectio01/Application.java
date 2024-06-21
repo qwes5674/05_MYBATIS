@@ -20,6 +20,7 @@ public class Application {
             System.out.println("5. 직원 수정 ");
             System.out.println("6. 직원 삭제");
             System.out.print(" 직원 관리 번호를 입력해주세요 : ");
+            System.out.print("9. 종료하기");
             int no = sc.nextInt();
 
             switch (no){

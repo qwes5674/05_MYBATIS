@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.section01.xml.DynamicSqlMapper">
+    <select id="selectEmployeeBySalary" parameterType="hashmap" resultMap="salaryResultMap">
+        select
+        a.EMP_ID,
+        a.EMP_NAME,
+        a.EMP_NO,
+        a.EMAIL,
+        a.PHONE,
+        a.DEPT_CODE,
+        a.JOB_CODE,
+        a.SAL_LEVEL,
+        a.SALARY,
+        a.BONUS,
+        a.MANAGER_ID,
+        a.HIRE_DATE,
+        a.ENT_DATE,
+        a.ENT_YN
+        from employee a
+        where a.ENT_YN = 'Y'
+        <!-- 0 =< salary <= 1900000 -->
+        <if test="salary gte 0 and price lte 1900000">
+            <![CDATA[
+            and a.employee.salary < #{ price }
+            ]]>
+        </if>
+        <!-- 1900000 < price <= 2900000  -->
+        <if test="price gt 1900000 and price lte 3000000">
+            and a.menu_price between 1900000 and #{ price }
+        </if>
+        <!-- 2900000 < price <= 3900000 -->
+        <if test="price gt 2900000 and price lte 3900000">
+            and a.menu_price between 2900000 and #{ price }
+        </if>
+        <!-- 5900000 < price -->
+        <if test="price gt 5900000">
+            and a.menu_price between 5900000 and #{ price }
+        </if>
+        order by a.menu_code
+
+    </select>
+</mapper>
