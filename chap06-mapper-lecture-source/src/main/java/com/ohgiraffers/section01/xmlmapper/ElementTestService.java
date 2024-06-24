@@ -1,5 +1,6 @@
 package com.ohgiraffers.section01.xmlmapper;
 
+import com.ohgiraffers.common.CategoryAndMenuDTO;
 import com.ohgiraffers.common.MenuAndCategoryDTO;
 import com.ohgiraffers.common.MenuDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -66,9 +67,31 @@ public class ElementTestService {
         List<MenuAndCategoryDTO> menuList = mapper.selectResultMapAssociationTest();
 
         for(MenuAndCategoryDTO menu : menuList) {
-            System.out.println(menu);
+            System.out.println("메뉴 이름: " + menu.getName() + ", 카테고리 이름 : " + menu.getCategory().getName());
         }
 
         sqlSession.close();
+    }
+
+    public void selectResultMapCollectionTest() {
+
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(ElementTestMapper.class);
+
+        List<CategoryAndMenuDTO> categoryList = mapper.selectResultMapCollectionTest();
+
+        // 특정한 것을 불러오고 싶을 때
+        List<MenuDTO> menuList = categoryList.get(4).getMenuList();
+
+        for(MenuDTO menu : menuList) {
+            System.out.println(menu);
+        }
+
+//        for(CategoryAndMenuDTO category : categoryList){
+//            System.out.println(category);
+//        }
+
+        sqlSession.close();
+
     }
 }

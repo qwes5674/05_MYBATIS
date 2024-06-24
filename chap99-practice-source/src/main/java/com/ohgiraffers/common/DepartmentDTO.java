@@ -1,6 +1,5 @@
 package com.ohgiraffers.common;
 
-
 import lombok.*;
 
 @NoArgsConstructor
@@ -9,10 +8,9 @@ import lombok.*;
 @Setter
 @ToString
 
-public class CategoryDTO {
+public class DepartmentDTO {
 
-    private int code;
-    private String name;
-    private int refCategoryCode;
-
+ private String id;
+ private String title;
+ private String locationId;
 }
