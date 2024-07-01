@@ -54,7 +54,7 @@
         select
         a.dept_id,
         a.dept_title,
-<!--        b.emp_name,-->
+        b.emp_name,
         b.emp_no,
         b.email,
         b.phone,

@@ -13,8 +13,6 @@ public class DeptAndEmployeeDTO {
 
     private String id;
     private String title;
-    private String locationId;
-
     private List<EmployeeDTO> employeeList;
 
 }
